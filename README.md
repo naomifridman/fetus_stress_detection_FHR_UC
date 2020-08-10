@@ -1,4 +1,5 @@
-# Fetus stress detection from FHR (fetus heart rate) and UC (uterus  contractions) 
+# Fetus stress detection from intrapartum CTG monitoring
+intrapartum CTG monitoring contains 2 signals: FHR (fetus heart rate) and UC (uterus  contractions) 
 
 This repository includes:
 Machine learning, Deep learning and signal processing for detecting fetal stress from Electronic Fetal Monitoring.
