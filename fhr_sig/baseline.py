@@ -19,8 +19,9 @@ np.set_printoptions(edgeitems=9)
 np.core.arrayprint._line_width = 180
 import scipy
 DEBUG = False
+#*************************************************************************
 # Matlab functions
-
+#*************************************************************************
 ## Matlab Fir2
 def mat_fix(x):
     if (np.isscalar(x)):
@@ -38,7 +39,7 @@ def mat_rem(x,y):
         else: return np.nan
     
     return x % y
-    
+#*************************************************************************    
 #function b = fir2(n, f, m, grid_n, ramp_n, window)
 # grid_n and ramp_n must be integers
 def mat_fir2(n, f_in, m_in, grid_n = np.nan, ramp_n= np.nan, window = np.nan):
@@ -136,7 +137,7 @@ def mat_fir2(n, f_in, m_in, grid_n = np.nan, ramp_n= np.nan, window = np.nan):
     ## Also, for matlab compatibility, we return return values in 1 row
     b = np.multiply(b , window)
     return b
-
+#*************************************************************************
 def mat_decimate(x, q, n = 0): #function y = decimate(x, q, n, ftype)
 
     if (n==0):
@@ -148,12 +149,12 @@ def mat_decimate(x, q, n = 0): #function y = decimate(x, q, n, ftype)
 
     y = y[0:len(x):q];
     return y
-    
+#*************************************************************************    
 def mat_interp1(xp,yp,xf):
     lin = scipy.interpolate.interp1d(xp, yp, 'linear')(xf)
     return lin
     
-
+#*************************************************************************
 def mat_fir1(n, w):
 
     if isinstance(w, (list, tuple, set, np.ndarray)):
@@ -223,7 +224,7 @@ def mat_fir1(n, w):
     
     b = renorm*b;
     return b
-    
+#*************************************************************************    
 def mat_fftfilt (b, x, n = np.nan):
 
     ## If N is not specified explicitly, we do not use the overlap-add
@@ -322,7 +323,7 @@ def mat_fftfilt (b, x, n = np.nan):
         y [idx] = np.round (y [idx]);
         
     return y
-
+#*************************************************************************
 def mat_fftfilt (b, x, n = np.nan):
 
     ## If N is not specified explicitly, we do not use the overlap-add
@@ -404,7 +405,7 @@ def mat_fftfilt (b, x, n = np.nan):
         y [idx] = np.round (y [idx]);
         
     return y
-
+#*************************************************************************
 def mat_interp1(x, y, xnew, kind='linear'):
     
     if kind == 'spline':
@@ -414,7 +415,7 @@ def mat_interp1(x, y, xnew, kind='linear'):
         return None
     f = scipy.interpolate.interp1d(x, y, kind)
     return f(xnew)
-
+#*************************************************************************
 def  mat_interp(x, q, n = 4, Wc = 0.5):
 
     if DEBUG: print('mat_interp:\n', '** mat_interp **')
@@ -434,8 +435,9 @@ def  mat_interp(x, q, n = 4, Wc = 0.5):
     # ? y(1:q*n+1) = [];  # adjust for zero filter delay
 
     return y[q*n+1:]
-    
+#*************************************************************************    
 # Fhr functionality for FHR baseline calculation
+#*************************************************************************
 def fhr_avgsubsamp(x,factor):
     
     y=np.zeros((int(np.floor(len(x)/factor))));
@@ -444,7 +446,7 @@ def fhr_avgsubsamp(x,factor):
     return y
     
 from scipy import signal
-
+#*************************************************************************
 def fhr_butterfilt(data, srate, f1, f2, order = 6, zeroPhase = 1):
     
     if DEBUG: print('fhr_butterfilt: order', order)
@@ -480,7 +482,7 @@ def fhr_butterfilt(data, srate, f1, f2, order = 6, zeroPhase = 1):
     #    print('data',data)
         
     return data
-
+#*************************************************************************
 def fhr_enveloppe(x,srate,f0,f1, deb = False): #function [y,x]=
 
     fftx=np.fft.fft(x);
@@ -652,7 +654,7 @@ def fhr_medgliss(X,win,coef,decim,X2 = np.nan,p2 = np.nan,c = np.nan, nargs=4): 
     mp=mp[:len(X)];
 
     return Y, mp
-    
+#*************************************************************************    
 # strate = 240
 
 def fhr_aamwmfb(FHRi, deb = DEBUG): #function [baseline,accelerations,decelerations,falseAcc,falseDec]=aamwmfb(FHRi)
