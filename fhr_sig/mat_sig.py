@@ -5,7 +5,7 @@ import re
 
 import numpy as np
 import matplotlib.pyplot as plt
-
+%matplotlib inline
 
 from scipy.ndimage import filters
 from IPython.display import display, Markdown, Latex
