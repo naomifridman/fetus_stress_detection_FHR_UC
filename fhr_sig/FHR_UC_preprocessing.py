@@ -1,12 +1,9 @@
 #!/usr/bin/env python
-# coding: utf-8
+# coding: utf-8    
 
 # # FHR UC signal Processing
-# 
-# ## Python Version of https://github.com/utsb-fmm/FHR
-#         
-# The FHR and UC are both sampled in 4 Hz.
-
+#
+# # Authour: Naomi Fridman naomi.fridman@gmail.com
 
 
 from os.path import dirname, join as pjoin
@@ -46,19 +43,8 @@ def read_matlab_fhr_df(fhr_name, train=1, mdir = '.\\octave\\FHR-master\\FHR-mas
         f = mdir +'test_csv\\'+fhr_name+'.csv'
     f = pd.read_csv(f, names=['UC', 'FHR', 'rel'], header=None)
     return f
-    
 
-
-# 
-
-DEBUG = False 
-def set_debug(deb):
-    DEBUG = deb
-
-
-# 
-
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def get_first_last_non_zero(fhr):
     s = 0
     e = len(fhr)-1
@@ -68,12 +54,8 @@ def get_first_last_non_zero(fhr):
     if (fhr[-1]==0):
         e = np.max(np.nonzero(fhr))
     return s, e
-        
 
-
-# 
-
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def get_non_zero_seqs(fhr):
         
     p = np.where(fhr>0, 1, 0).astype(int)
@@ -86,11 +68,7 @@ def get_non_zero_seqs(fhr):
     if DEBUG: print(len(eind))
     
     return sind, eind
-
-
-# 
-
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def remove_small_particles(fhr, n_sec = 5, Hz = 4):
     
     sind, eind = get_non_zero_seqs(fhr)
@@ -113,10 +91,7 @@ def remove_small_particles(fhr, n_sec = 5, Hz = 4):
             fhr[s1:e1] = 0
     return fhr
 
-
-# In[15]:
-
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def remove_small_pikes(fhr, gap_sec = 30, Hz = 4, gap=25):
 
     ft = fhr.copy()
@@ -164,7 +139,7 @@ def remove_small_pikes(fhr, gap_sec = 30, Hz = 4, gap=25):
 # ### Linerar interpolation
 # * linear_interpolate_nan - close nan sequences with linear interpolation
 # * make_small_gaps_nan - make small gaps we want to interpolate to nan
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def linear_interpolate_nan(x):
     not_nan = np.logical_not(np.isnan(x))
     indices = np.arange(len(x))
@@ -174,7 +149,7 @@ def linear_interpolate_nan(x):
 
 # 
 
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def make_small_gaps_nan(fhr, gap_sec = 30, Hz = 4):
     
     #snz,enz = get_first_last_non_zero(fhr)
@@ -198,7 +173,7 @@ def make_small_gaps_nan(fhr, gap_sec = 30, Hz = 4):
     
     return ft
 
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 # ## Summerize preprocessing 
 
 
@@ -249,7 +224,7 @@ def preprocess(fhr, uc, remove_padding_zeros = True):
 
 # 
 
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def preprocess_df_fhr(df, col_good_signal = None):
     
     fhr = df['FHR'].values
@@ -266,7 +241,7 @@ def preprocess_df_fhr(df, col_good_signal = None):
 
 # 
 
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def load_matlab_fhr_preprocess(fname, train=1):
     
     f = read_matlab_fhr_df(fname, train)
@@ -274,7 +249,7 @@ def load_matlab_fhr_preprocess(fname, train=1):
     fhr, fhr_nan, uc, ifirst, ilast = preprocess_df_fhr(f, col_good_signal = 'rel')
     return fhr, fhr_nan, uc, ifirst, ilast
 
-
+# Authour: Naomi Fridman naomi.fridman@gmail.com
 def get_ctu_chb_sig(rec_id=1004, CSV_DIR = '.\\ctu_csv_data\\'):
     
     
