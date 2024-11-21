@@ -252,10 +252,10 @@ def load_matlab_fhr_preprocess(fname, train=1):
 # Authour: Naomi Fridman naomi.fridman@gmail.com
 def get_ctu_chb_sig(rec_id=1004, CSV_DIR = '.\\ctu_csv_data\\'):
     
-    
+    import os
     fname = 'df_sig_'+str(rec_id)+'.csv'
     print('loading ', CSV_DIR + 'csv_recs\\'+fname)
-    df = pd.read_csv(CSV_DIR + 'csv_recs\\'+fname)
+    df = pd.read_csv(os.path.join(CSV_DIR , 'csv_recs',fname)
     
     fhr, fhr_nan, uc, ifirst, ilast = preprocess_df_fhr(f)
     return fhr, fhr_nan, uc, ifirst, ilast
